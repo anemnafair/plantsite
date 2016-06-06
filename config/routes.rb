@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
-  root 'pages#home'
-  
+  root "pages#home"
+  get "plant_master" => "pages#plant_master"
 
 
 
