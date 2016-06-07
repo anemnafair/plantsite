@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   
-  root "pages#home"
-  get "plant_master" => "pages#plant_master"
-
-
+  root "pages#home" # creates root path
+  get "plant_master" => "pages#plant_master" # creates plant_master path
 
 
   # The priority is based upon order of creation: first created -> highest priority.
