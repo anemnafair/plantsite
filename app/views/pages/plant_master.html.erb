@@ -10,27 +10,48 @@
 
 
 	<div class="general">
-		<%= link_to 'img src="#" alt="general plant image"', "#" %>
+		<img src="#" alt="general plant image">
 	</div>
 
-	<div class="flower">
-		<h1>Flower</h1>
-		<img src="#" alt="flower image">
-	</div>
+<div class="flower">
+		<!-- Button trigger modal -->
+	<button type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal">
+	  <h1>Flower</h1>
+	</button>
+	<button type="button" class="btn" data-toggle="modal" data-target="#myModal">
+	  <img src="#" alt="flower image">
+	</button>
+
+<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			    <h4 class="modal-title" id="myModalLabel">Flower</h4>
+			    <h4 class="modal-images" id="myModalLabel"><img src="#" alt="flower image"></h4>
+			  </div><!-- End of title and flower section -->
+			  <div class="modal-body">
+			    Lorem ipsum dolor sit amet, commodo vehicula viverra et. Molestias vehicula quis pede non neque in. At id leo mi sed proin, enim consectetuer, sagittis luctus semper consectetuer sociis placerat cras, cursus egestas in morbi. Congue ligula scelerisque ipsum, at sit vel congue. Interdum gravida lectus, viverra arcu velit, mollis sit accumsan congue fusce tempor eget, scelerisque turpis, elit sit donec dictum.
+			  </div><!-- End of body section -->
+			</div>
+		</div>
+	</div><!-- End of flowers modal -->
+</div><!-- End of flowers section -->
 
 	<div class="fruit">
 		<h1>Fruit</h1>
 		<img src="#" alt="fruit image">
-	</div>
+	</div><!-- End of fruit section -->
 
 	<div class="leaf">
 		<h1>Leaf</h1>
 		<img src="#" alt="leaf image">
-	</div>
+	</div><!-- End of leaf section -->
 
 	<div class="twigs+stems">
 		<h1>Twigs and Stem</h1>
 		<img src="#" alt="twigs and stem image">
-	</div>
+	</div><!-- End of twits+stems section -->
 
 </body>

@@ -1,6 +1,17 @@
+$font-family-sans-serif:           'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$navbar-height: 45px;
+
 $btn-success-color: #333333;
 $navbar-inverse-link-color: #2ecc71;
 $brand-primary: #f39c12;
-@import 'bootstrap-sprockets';
 
+@import 'bootstrap-sprockets';
 @import 'bootstrap';
+
+.center {
+	text-align: center;
+}
+
+.navbar-brand {
+	font-weight: bold;
+}
