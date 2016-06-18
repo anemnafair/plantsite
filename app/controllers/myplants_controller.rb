@@ -1,5 +1,7 @@
 class MyplantsController < ApplicationController
   before_action :set_myplant, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
 
   respond_to :html
 
@@ -13,7 +15,7 @@ class MyplantsController < ApplicationController
   end
 
   def new
-    @myplant = Myplant.new
+    @myplant = current_user.myplants.build
     respond_with(@myplant)
   end
 
@@ -21,7 +23,7 @@ class MyplantsController < ApplicationController
   end
 
   def create
-    @myplant = Myplant.new(myplant_params)
+    @myplant = current_user.myplants.build(myplant_params)
     if @myplant.save
       redirect_to @myplant, notice: 'Your plant list was successfully created.'
     else
@@ -45,6 +47,11 @@ class MyplantsController < ApplicationController
   private
     def set_myplant
       @myplant = Myplant.find(params[:id])
+    end
+
+    def correct_user
+      @myplant = current_user.myplants.find_by(id: params[:id])
+      redirect_to myplants_path, notice: "Not authorized to edit this plant list." if @myplant.nil?
     end
 
     def myplant_params
