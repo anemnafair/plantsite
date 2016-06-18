@@ -5,6 +5,9 @@ class PagesController < ApplicationController
 	def home
 	end
 
+	def myplants
+	end
+
 	def plant_master
 	end
 

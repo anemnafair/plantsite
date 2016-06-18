@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
   
+ 
+
+  resources :myplants
+
   devise_for :users 
   get "signup" => "pages#signup" # creates the flash page sign up page
-  root "pages#home" # creates root path
+  root "pages#home" # creates root path to home  
   get "plant_master" => "pages#plant_master" # creates plant_master path
   get "about" => "pages#about" # creates about path
-  get "subscribe" => "pages#subscribe" # creates plant_master path
+  get "subscribe" => "pages#subscribe" # creates subsribe path
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

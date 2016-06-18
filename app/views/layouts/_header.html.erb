@@ -22,6 +22,9 @@
       </form> -->
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home", root_path %></li>
+        <% if user_signed_in? %>
+          <li><%= link_to "My Plants", myplants_path %></li>
+        <% end %>
         <li><%= link_to "About", about_path %></li>
         <li><%= link_to "Subscribe", subscribe_path %></li>
         <% if user_signed_in? %>
