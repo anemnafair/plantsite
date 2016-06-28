@@ -55,6 +55,6 @@ class MyplantsController < ApplicationController
     end
 
     def myplant_params
-      params.require(:myplant).permit(:description)
+      params.require(:myplant).permit(:description, :image)
     end
 end

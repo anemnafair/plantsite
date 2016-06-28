@@ -1,57 +1,200 @@
 
 <body>
-	<h1>Common Names</h1>
-	<p>Scientific Name</p>
-
-	<p>rating</p>
-
-	<h1>Zone #</h1>
-	<p>Zone</p>
-
-
-	<div class="general">
-		<img src="#" alt="general plant image">
+	<div class="name">
+		<h1>Common Names</h1>
+		<p>Scientific Name</p>
 	</div>
 
-<div class="flower">
-		<!-- Button trigger modal -->
-	<button type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal">
-	  <h1>Flower</h1>
-	</button>
-	<button type="button" class="btn" data-toggle="modal" data-target="#myModal">
-	  <img src="#" alt="flower image">
-	</button>
+	<fieldset class="rating">
+    <input type="radio" id="star5" name="rating" value="5" />
+    <label class = "full" for="star5" title="Awesome - 5 stars"></label>
+    <input type="radio" id="star4half" name="rating" value="4 and a half" />
+    <label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+    <input type="radio" id="star4" name="rating" value="4" />
+    <label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+    <input type="radio" id="star3half" name="rating" value="3 and a half" />
+    <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+    <input type="radio" id="star3" name="rating" value="3" />
+    <label class = "full" for="star3" title="Meh - 3 stars"></label>
+    <input type="radio" id="star2half" name="rating" value="2 and a half" />
+    <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+    <input type="radio" id="star2" name="rating" value="2" />
+    <label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+    <input type="radio" id="star1half" name="rating" value="1 and a half" />
+    <label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+    <input type="radio" id="star1" name="rating" value="1" />
+    <label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+    <input type="radio" id="starhalf" name="rating" value="half" />
+    <label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+	</fieldset>
 
-<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-			  <div class="modal-header">
-			    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			    <h4 class="modal-title" id="myModalLabel">Flower</h4>
-			    <h4 class="modal-images" id="myModalLabel"><img src="#" alt="flower image"></h4>
-			  </div><!-- End of title and flower section -->
-			  <div class="modal-body">
-			    Lorem ipsum dolor sit amet, commodo vehicula viverra et. Molestias vehicula quis pede non neque in. At id leo mi sed proin, enim consectetuer, sagittis luctus semper consectetuer sociis placerat cras, cursus egestas in morbi. Congue ligula scelerisque ipsum, at sit vel congue. Interdum gravida lectus, viverra arcu velit, mollis sit accumsan congue fusce tempor eget, scelerisque turpis, elit sit donec dictum.
-			  </div><!-- End of body section -->
+
+
+	<div class="hardiness">
+		<h1>4-9</h1>
+		<p>Hardiness Zone</p>
+	</div>
+
+	
+
+	<!-- Flowers -->
+
+		<div class="flower">
+				<!-- Button trigger modal -->
+			<div class="title">	
+				<button type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal">
+				  <h1>Flower</h1>
+				</button>
 			</div>
-		</div>
-	</div><!-- End of flowers modal -->
-</div><!-- End of flowers section -->
+			<div class="img">
+				<button type="button" class="btn" data-toggle="modal" data-target="#myModal">
+				  <img src="#" alt="flower image">
+				</button>
+			</div>
 
-	<div class="fruit">
-		<h1>Fruit</h1>
-		<img src="#" alt="fruit image">
-	</div><!-- End of fruit section -->
+		<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					    <h4 class="modal-title" id="myModalLabel">Flower</h4>
+					    <h4 class="modal-images" id="myModalLabel"><img src="#" alt="flower image"></h4>
+					  </div><!-- End of title and flower section -->
+					  <div class="modal-body">
+					    Lorem ipsum dolor sit amet, commodo vehicula viverra et. Molestias vehicula quis pede non neque in. At id leo mi sed proin, enim consectetuer, sagittis luctus semper consectetuer sociis placerat cras, cursus egestas in morbi. Congue ligula scelerisque ipsum, at sit vel congue. Interdum gravida lectus, viverra arcu velit, mollis sit accumsan congue fusce tempor eget, scelerisque turpis, elit sit donec dictum.
+					  </div><!-- End of body section -->
+					</div>
+				</div>
+			</div><!-- End of flowers modal -->
+		</div><!-- End of flowers section -->
 
-	<div class="leaf">
-		<h1>Leaf</h1>
-		<img src="#" alt="leaf image">
-	</div><!-- End of leaf section -->
+		<!-- Twigs and Stems -->
 
-	<div class="twigs+stems">
-		<h1>Twigs and Stem</h1>
-		<img src="#" alt="twigs and stem image">
-	</div><!-- End of twits+stems section -->
+		<div class="twigs-and-stems">
+				<!-- Button trigger modal -->
+			<div class="img">	
+				<button type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal">
+				  <h1>Twigs and Stems</h1>
+				  <img src="#" alt="Twigs and Stems">
+				</button>
+			</div>
+			
 
+		<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					    <h4 class="modal-title" id="myModalLabel">Twigs and Stems</h4>
+					    <h4 class="modal-images" id="myModalLabel"><img src="#" alt="twigs and stems image"></h4>
+					  </div><!-- End of title and flower section -->
+					  <div class="modal-body">
+					    Lorem ipsum dolor sit amet, commodo vehicula viverra et. Molestias vehicula quis pede non neque in. At id leo mi sed proin, enim consectetuer, sagittis luctus semper consectetuer sociis placerat cras, cursus egestas in morbi. Congue ligula scelerisque ipsum, at sit vel congue. Interdum gravida lectus, viverra arcu velit, mollis sit accumsan congue fusce tempor eget, scelerisque turpis, elit sit donec dictum.
+					  </div><!-- End of body section -->
+					</div>
+				</div>
+			</div><!-- End of flowers modal -->
+		</div><!-- End of flowers section -->
+
+		<!-- General -->
+
+		<div class="general">
+				<!-- Button trigger modal -->
+			<div class="title">	
+				<button type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal">
+				  <h1>General</h1>
+				</button>
+			</div>
+			<div class="general-img">
+				<button type="button" class="btn" data-toggle="modal" data-target="#myModal">
+				  <img src="#" alt="general image">
+				</button>
+			</div>
+
+		<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					    <h4 class="modal-title" id="myModalLabel">General</h4>
+					    <h4 class="modal-images" id="myModalLabel"><img src="#" alt="General image"></h4>
+					  </div><!-- End of title and general section -->
+					  <div class="modal-body">
+					    Lorem ipsum dolor sit amet, commodo vehicula viverra et. Molestias vehicula quis pede non neque in. At id leo mi sed proin, enim consectetuer, sagittis luctus semper consectetuer sociis placerat cras, cursus egestas in morbi. Congue ligula scelerisque ipsum, at sit vel congue. Interdum gravida lectus, viverra arcu velit, mollis sit accumsan congue fusce tempor eget, scelerisque turpis, elit sit donec dictum.
+					  </div><!-- End of body section -->
+					</div>
+				</div>
+			</div><!-- End of general modal -->
+		</div><!-- End of general section -->
+
+	<!-- Fruit -->
+
+		<div class="fruit">
+				<!-- Button trigger modal -->
+			<div class="title">	
+				<button type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal">
+				  <h1>Fruit</h1>
+				</button>
+			</div>
+			<div class="img">
+				<button type="button" class="btn" data-toggle="modal" data-target="#myModal">
+				  <img src="#" alt="fruit image">
+				</button>
+			</div>
+
+		<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					    <h4 class="modal-title" id="myModalLabel">Fruit</h4>
+					    <h4 class="modal-images" id="myModalLabel"><img src="#" alt="flower image"></h4>
+					  </div><!-- End of title and flower section -->
+					  <div class="modal-body">
+					    Lorem ipsum dolor sit amet, commodo vehicula viverra et. Molestias vehicula quis pede non neque in. At id leo mi sed proin, enim consectetuer, sagittis luctus semper consectetuer sociis placerat cras, cursus egestas in morbi. Congue ligula scelerisque ipsum, at sit vel congue. Interdum gravida lectus, viverra arcu velit, mollis sit accumsan congue fusce tempor eget, scelerisque turpis, elit sit donec dictum.
+					  </div><!-- End of body section -->
+					</div>
+				</div>
+			</div><!-- End of fruit modal -->
+		</div><!-- End of fruit section -->
+
+	<!-- Leaf -->
+
+		<div class="leaf">
+				<!-- Button trigger modal -->
+			<div class="title">	
+				<button type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal">
+				  <h1>Leaves</h1>
+				</button>
+			</div>
+			<div class="img">
+				<button type="button" class="btn" data-toggle="modal" data-target="#myModal">
+				  <img src="#" alt="leaf image">
+				</button>
+			</div>
+
+		<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					    <h4 class="modal-title" id="myModalLabel">Leaf</h4>
+					    <h4 class="modal-images" id="myModalLabel"><img src="#" alt="leaf image"></h4>
+					  </div><!-- End of title and flower section -->
+					  <div class="modal-body">
+					    Lorem ipsum dolor sit amet, commodo vehicula viverra et. Molestias vehicula quis pede non neque in. At id leo mi sed proin, enim consectetuer, sagittis luctus semper consectetuer sociis placerat cras, cursus egestas in morbi. Congue ligula scelerisque ipsum, at sit vel congue. Interdum gravida lectus, viverra arcu velit, mollis sit accumsan congue fusce tempor eget, scelerisque turpis, elit sit donec dictum.
+					  </div><!-- End of body section -->
+					</div>
+				</div>
+			</div><!-- End of flowers modal -->
+		</div><!-- End of flowers section -->
+
+	
+
+	</div><!-- End of all plant info -->
 </body>
