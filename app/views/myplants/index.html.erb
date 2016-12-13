@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>Image</th>
       <th>Description</th>
       <th>User</th>
       <th colspan="3"></th>
@@ -12,8 +13,9 @@
   <tbody>
     <% @myplants.each do |myplant| %>
       <tr>
+        <td><%= image_tag myplant.image.url, width: 300 %></td>
         <td><%= myplant.description %></td>
-        <td><%= myplant.user.email %></td>
+        <td><%= myplant.user 'email' %></td>
         <td><%= link_to 'Show', myplant %></td>
         <% if myplant.user == current_user %>
           <td><%= link_to 'Edit', edit_myplant_path(myplant) %></td>

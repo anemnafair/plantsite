@@ -1,0 +1,458 @@
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/config.h.in file-5.00-src/config.h.in
+--- file-5.00-orig/config.h.in	2009-02-03 21:16:17.000000000 +0100
++++ file-5.00-src/config.h.in	2009-02-08 15:05:06.046875000 +0100
+@@ -263,3 +263,14 @@ typedef long int64_t;
+ #endif
+ #endif
+ 
++#ifndef HAVE_DONE_WORKING_MALLOC_CHECK
++# define HAVE_DONE_WORKING_MALLOC_CHECK 1
++#endif
++
++#ifndef HAVE_DONE_WORKING_REALLOC_CHECK
++# define HAVE_DONE_WORKING_REALLOC_CHECK 1
++#endif
++
++#ifdef _WIN32
++# define EOVERFLOW EINVAL
++#endif
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/magic/Makefile.in file-5.00-src/magic/Makefile.in
+--- file-5.00-orig/magic/Makefile.in	2009-02-03 21:16:19.000000000 +0100
++++ file-5.00-src/magic/Makefile.in	2009-02-08 15:05:06.109375000 +0100
+@@ -167,7 +167,7 @@ top_srcdir = @top_srcdir@
+ #
+ MAGIC_FRAGMENT_BASE = Magdir
+ MAGIC_FRAGMENT_DIR = $(top_srcdir)/magic/$(MAGIC_FRAGMENT_BASE)
+-pkgdata_DATA = magic.mgc
++pkgdata_DATA = magic.mgc magic
+ EXTRA_DIST = Header Localstuff \
+ $(MAGIC_FRAGMENT_DIR)/acorn \
+ $(MAGIC_FRAGMENT_DIR)/adi \
+@@ -578,6 +578,15 @@ uninstall-am: uninstall-pkgdataDATA
+ 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+ 	uninstall uninstall-am uninstall-pkgdataDATA
+ 
++magic: $(EXTRA_DIST)
++	for frag in $(EXTRA_DIST); do \
++	  if test -f $(srcdir)/$$frag; then \
++	    f=$(srcdir)/$$frag; \
++	  else \
++	    f=$$frag; \
++	  fi; \
++          cat $$f; \
++	done >> $@
+ 
+ ${MAGIC}: $(EXTRA_DIST) $(FILE_COMPILE_DEP)
+ 	$(FILE_COMPILE) -C -m $(MAGIC_FRAGMENT_DIR)
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/Makefile.in file-5.00-src/src/Makefile.in
+--- file-5.00-orig/src/Makefile.in	2009-02-03 21:16:19.000000000 +0100
++++ file-5.00-src/src/Makefile.in	2009-02-08 15:20:49.203125000 +0100
+@@ -61,14 +61,16 @@ libmagic_la_DEPENDENCIES = $(LTLIBOBJS)
+ am_libmagic_la_OBJECTS = magic.lo apprentice.lo softmagic.lo \
+ 	ascmagic.lo encoding.lo compress.lo is_tar.lo readelf.lo \
+ 	print.lo fsmagic.lo funcs.lo apptype.lo cdf.lo cdf_time.lo \
+-	readcdf.lo
++	readcdf.lo magic-dllversion.lo magic-dll-res.lo
+ libmagic_la_OBJECTS = $(am_libmagic_la_OBJECTS)
+ libmagic_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+ 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+ 	$(libmagic_la_LDFLAGS) $(LDFLAGS) -o $@
+ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
+ PROGRAMS = $(bin_PROGRAMS)
+-am_file_OBJECTS = file.$(OBJEXT)
++am_file_OBJECTS = file.$(OBJEXT) file-res.$(OBJEXT) \
++ 	progname.$(OBJEXT) progreloc.$(OBJEXT) relocatable.$(OBJEXT) \
++ 	error.$(OBJEXT) xmalloc.$(OBJEXT) xstrdup.$(OBJEXT)
+ file_OBJECTS = $(am_file_OBJECTS)
+ file_DEPENDENCIES = libmagic.la
+ DEFAULT_INCLUDES = -I. -I$(top_builddir)@am__isrc@
+@@ -101,7 +103,9 @@ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+ CFLAGS = @CFLAGS@
+ CPP = @CPP@
+-CPPFLAGS = @CPPFLAGS@
++CPPFLAGS = @CPPFLAGS@ \
++	-DENABLE_RELOCATABLE -DINSTALLPREFIX=\"$(prefix)\" \
++	-DINSTALLDIR=\"$(bindir)\" -DEXEEXT=\"$(EXEEXT)\"
+ CXX = @CXX@
+ CXXCPP = @CXXCPP@
+ CXXDEPMODE = @CXXDEPMODE@
+@@ -123,7 +127,7 @@ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_PROGRAM = @INSTALL_PROGRAM@
+ INSTALL_SCRIPT = @INSTALL_SCRIPT@
+ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+-LDFLAGS = @LDFLAGS@
++LDFLAGS = @LDFLAGS@ $(VERSADD)
+ LIBOBJS = @LIBOBJS@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
+@@ -144,6 +148,9 @@ SET_MAKE = @SET_MAKE@
+ SHELL = @SHELL@
+ STRIP = @STRIP@
+ VERSION = @VERSION@
++MAJOR=$(shell echo $(VERSION) | sed -e "s/\..*$$//")
++MINOR=$(shell echo $(VERSION) | sed -e "s/^[^\.]*\.0*\([0-9]\+\).*$$/\1/") 
++LDFLAGS += -Wl,--major-image-version=$(MAJOR) -Wl,--minor-image-version=$(MINOR)
+ WARNINGS = @WARNINGS@
+ abs_builddir = @abs_builddir@
+ abs_srcdir = @abs_srcdir@
+@@ -199,6 +206,7 @@ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ MAGIC = $(pkgdatadir)/magic
+ lib_LTLIBRARIES = libmagic.la
++lib_LIBRARIES = .libs/magic.lib .libs/magic-bcc.lib
+ include_HEADERS = magic.h
+ AM_CPPFLAGS = -DMAGIC='"$(MAGIC)"'
+ AM_CFLAGS = @WARNINGS@
+@@ -214,7 +222,7 @@ file_LDADD = libmagic.la
+ all: all-am
+ 
+ .SUFFIXES:
+-.SUFFIXES: .c .lo .o .obj
++.SUFFIXES: .c .lo .o .obj .rc .exe
+ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
+ 	@for dep in $?; do \
+ 	  case '$(am__configure_deps)' in \
+@@ -244,7 +252,7 @@ $(top_srcdir)/configure:  $(am__configur
+ 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
+ $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
+ 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
+-install-libLTLIBRARIES: $(lib_LTLIBRARIES)
++install-libLTLIBRARIES: $(lib_LTLIBRARIES) $(lib_LIBRARIES)
+ 	@$(NORMAL_INSTALL)
+ 	test -z "$(libdir)" || $(MKDIR_P) "$(DESTDIR)$(libdir)"
+ 	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+@@ -254,6 +262,13 @@ install-libLTLIBRARIES: $(lib_LTLIBRARIE
+ 	    $(LIBTOOL) --mode=install $(libLTLIBRARIES_INSTALL) $(INSTALL_STRIP_FLAG) "$$p" "$(DESTDIR)$(libdir)/$$f"; \
+ 	  else :; fi; \
+ 	done
++	@list='$(lib_LIBRARIES)'; for p in $$list; do \
++	  if test -f $$p; then \
++	    f=$(am__strip_dir) \
++	    echo " $(binPROGRAMS_INSTALL) "$$p" "$(DESTDIR)$(libdir)/$$f" "; \
++	    $(binPROGRAMS_INSTALL) "$$p" "$(DESTDIR)$(libdir)/$$f" || exit 1; \
++	  else :; fi; \
++	done
+ 
+ uninstall-libLTLIBRARIES:
+ 	@$(NORMAL_UNINSTALL)
+@@ -272,7 +287,8 @@ clean-libLTLIBRARIES:
+ 	  rm -f "$${dir}/so_locations"; \
+ 	done
+ libmagic.la: $(libmagic_la_OBJECTS) $(libmagic_la_DEPENDENCIES) 
+-	$(libmagic_la_LINK) -rpath $(libdir) $(libmagic_la_OBJECTS) $(libmagic_la_LIBADD) $(LIBS)
++	$(libmagic_la_LINK) -rpath $(libdir) $(libmagic_la_OBJECTS) $(libmagic_la_LIBADD) $(LIBS) -dllname magic
++	cd .libs && dll2lib magic*.dll -l magic
+ install-binPROGRAMS: $(bin_PROGRAMS)
+ 	@$(NORMAL_INSTALL)
+ 	test -z "$(bindir)" || $(MKDIR_P) "$(DESTDIR)$(bindir)"
+@@ -333,6 +349,15 @@ distclean-compile:
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/readelf.Plo@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/softmagic.Plo@am__quote@
+ 
++# Rule to make compiled resource (Windows)
++resdir = @top_builddir@/resource
++VPATH += $(resdir)
++RCTOOL_COMPILE = rctool
++.rc.lo:
++	$(RCTOOL_COMPILE) $<
++.rc.o:
++	windres --include-dir $(resdir) -i $< -o $@
++
+ .c.o:
+ @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+ @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@@ -354,6 +379,10 @@ distclean-compile:
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+ @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
+ 
++magic-dll-res.lo: $(resdir)/magic-dll-res.rc
++	$(RCTOOL_COMPILE) $<
++	cp -fp .libs/magic-dll-res.o .
++
+ mostlyclean-libtool:
+ 	-rm -f *.lo
+ 
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/apprentice.c file-5.00-src/src/apprentice.c
+--- file-5.00-orig/src/apprentice.c	2009-02-03 21:27:51.000000000 +0100
++++ file-5.00-src/src/apprentice.c	2009-02-08 15:05:06.140625000 +0100
+@@ -327,7 +327,9 @@ file_delmagic(struct magic *p, int type,
+ #ifdef QUICK
+ 	case 2:
+ 		p--;
++#ifdef QUICK
+ 		(void)munmap((void *)p, sizeof(*p) * (entries + 1));
++#endif
+ 		break;
+ #endif
+ 	case 1:
+@@ -613,9 +615,14 @@ private void
+ load_1(struct magic_set *ms, int action, const char *fn, int *errs,
+    struct magic_entry **marray, uint32_t *marraycount)
+ {
++#ifdef _WIN32
++# define FRDOPEN_OPTS	"rb"
++#else
++# define FRDOPEN_OPTS	"r"
++#endif
+ 	char line[BUFSIZ];
+ 	size_t lineno = 0;
+-	FILE *f = fopen(ms->file = fn, "r");
++	FILE *f = fopen(ms->file = fn, FRDOPEN_OPTS);
+ 	if (f == NULL) {
+ 		if (errno != ENOENT)
+ 			file_error(ms, errno, "cannot read magic file `%s'",
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/compress.c file-5.00-src/src/compress.c
+--- file-5.00-orig/src/compress.c	2009-02-03 21:27:51.000000000 +0100
++++ file-5.00-src/src/compress.c	2009-02-08 15:07:04.015625000 +0100
+@@ -45,7 +45,9 @@ FILE_RCSID("@(#)$File: compress.c,v 1.61
+ #endif
+ #include <string.h>
+ #include <errno.h>
++#ifdef HAVE_SYS_IOCTL_H
+ #include <sys/ioctl.h>
++#endif
+ #ifdef HAVE_SYS_WAIT_H
+ #include <sys/wait.h>
+ #endif
+@@ -240,7 +242,7 @@ file_pipe2file(struct magic_set *ms, int
+ #ifndef HAVE_MKSTEMP
+ 	{
+ 		char *ptr = mktemp(buf);
+-		tfd = open(ptr, O_RDWR|O_TRUNC|O_EXCL|O_CREAT, 0600);
++		tfd = open(ptr, O_RDWR|O_TRUNC|O_EXCL|O_CREAT|O_BINARY, 0600);
+ 		r = errno;
+ 		(void)unlink(ptr);
+ 		errno = r;
+@@ -384,6 +386,10 @@ uncompressbuf(struct magic_set *ms, int 
+ 		file_error(ms, errno, "cannot create pipe");	
+ 		return NODATA;
+ 	}
++#if _WIN32 || __WIN32__
++         fprintf(stderr, "This compressed file format not implemented.");
++         exit (1);
++#else /* _WIN32 */
+ 	switch (fork()) {
+ 	case 0:	/* child */
+ 		(void) close(0);
+@@ -488,4 +494,5 @@ err:
+ #endif
+ 		return n;
+ 	}
++#endif /* _WIN32 */
+ }
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/file.c file-5.00-src/src/file.c
+--- file-5.00-orig/src/file.c	2009-02-03 21:27:51.000000000 +0100
++++ file-5.00-src/src/file.c	2009-02-08 15:12:01.562500000 +0100
+@@ -70,7 +70,17 @@ FILE_RCSID("@(#)$File: file.c,v 1.130 20
+ int getopt_long(int argc, char * const *argv, const char *optstring, const struct option *longopts, int *longindex);
+ #endif
+ 
++#ifdef _WIN32
++#include <winsock.h>
++#else
+ #include <netinet/in.h>		/* for byte swapping */
++#endif
++
++#include "progname.h"
++#ifdef ENABLE_RELOCATABLE
++# include <relocatable.h>
++#endif
++#define progname program_name
+ 
+ #include "patchlevel.h"
+ 
+@@ -93,7 +103,11 @@ private int 		/* Global command-line opt
+ 	nulsep = 0;	/* Append '\0' to the separator		*/
+ 
+ private const char *default_magicfile = MAGIC;
++#if defined _WIN32 || defined __WIN32__ || defined MSDOS || defined EMX
++private const char *separator = ";"; /* Default field separator */
++#else
+ private const char *separator = ":";	/* Default field separator	*/
++#endif
+ private	const char hmagic[] = "/.magic";
+ private const struct option long_options[] = {
+ #define OPT(shortname, longname, opt, doc)      \
+@@ -122,7 +136,6 @@ private const struct {
+ 	{ "tokens",	MAGIC_NO_CHECK_TOKENS },
+ };
+ 
+-private char *progname;		/* used throughout 		*/
+ 
+ private void usage(void);
+ private void help(void);
+@@ -157,12 +170,8 @@ main(int argc, char *argv[])
+ 	_wildcard(&argc, &argv);
+ #endif
+ 
+-	if ((progname = strrchr(argv[0], '/')) != NULL)
+-		progname++;
+-	else
+-		progname = argv[0];
+-
+-	magicfile = default_magicfile;
++	set_program_name (argv[0]);
++	magicfile = relocate (default_magicfile);
+ 	if ((usermagic = getenv("MAGIC")) != NULL)
+ 		magicfile = usermagic;
+ 	else
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/file.h file-5.00-src/src/file.h
+--- file-5.00-orig/src/file.h	2009-02-03 21:27:51.000000000 +0100
++++ file-5.00-src/src/file.h	2009-02-08 15:05:06.171875000 +0100
+@@ -59,7 +59,11 @@
+ #define MAGIC "/etc/magic"
+ #endif
+ 
+-#ifdef __EMX__
++#ifdef _WIN32
++#include "file-nonposix.h"
++#endif /* _WIN32 */
++
++#if defined __EMX__ || defined __MSDOS__ || defined _WIN32 || defined __WIN32__
+ #define PATHSEP	';'
+ #else
+ #define PATHSEP	':'
+@@ -442,3 +446,4 @@ static const char *rcsid(const char *p) 
+ #endif
+ 
+ #endif /* __file_h__ */
++
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/fsmagic.c file-5.00-src/src/fsmagic.c
+--- file-5.00-orig/src/fsmagic.c	2009-02-03 21:27:51.000000000 +0100
++++ file-5.00-src/src/fsmagic.c	2009-02-08 15:05:06.187500000 +0100
+@@ -70,9 +70,11 @@ bad_link(struct magic_set *ms, int err, 
+ 	    == -1)
+ 		return -1;
+ 	else if (!mime) {
++#ifdef ELOOP
+ 		if (err == ELOOP)
+ 			errfmt = "symbolic link in a loop";
+ 		else
++#endif
+ 			errfmt = "broken symbolic link to `%s'";
+ 		if (ms->flags & MAGIC_ERROR) {
+ 			file_error(ms, err, errfmt, buf);
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/magic.c file-5.00-src/src/magic.c
+--- file-5.00-orig/src/magic.c	2009-02-03 21:27:51.000000000 +0100
++++ file-5.00-src/src/magic.c	2009-02-08 15:05:06.187500000 +0100
+@@ -61,7 +61,11 @@ FILE_RCSID("@(#)$File: magic.c,v 1.59 20
+ #include <locale.h>
+ #endif
+ 
++#ifdef _WIN32
++#include <winsock.h>
++#else
+ #include <netinet/in.h>		/* for byte swapping */
++#endif
+ 
+ #include "patchlevel.h"
+ 
+@@ -218,7 +222,7 @@ close_and_restore(const struct magic_set
+ 		 */
+ #ifdef HAVE_UTIMES
+ 		struct timeval  utsbuf[2];
+-		(void)memset(utsbuf, 0, sizeof(utsbuf));
++		(void)memset(&utsbuf, 0, sizeof(utsbuf));
+ 		utsbuf[0].tv_sec = sb->st_atime;
+ 		utsbuf[1].tv_sec = sb->st_mtime;
+ 
+@@ -291,13 +295,15 @@ file_or_fd(struct magic_set *ms, const c
+ 		int flags = O_RDONLY|O_BINARY;
+ 
+ 		if (stat(inname, &sb) == 0 && S_ISFIFO(sb.st_mode)) {
++#if O_NONBLOCK
+ 			flags |= O_NONBLOCK;
++#endif
+ 			ispipe = 1;
+ 		}
+ 
+ 		errno = 0;
+ 		if ((fd = open(inname, flags)) < 0) {
+-#ifdef __CYGWIN__
++#if defined __CYGWIN__ || defined _WIN32
+ 			/* FIXME: Do this with EXEEXT from autotools */
+ 			size_t len = strlen(inname) + 5;
+ 			char *tmp = alloca(len);
+@@ -314,11 +320,11 @@ file_or_fd(struct magic_set *ms, const c
+ 					goto done;
+ 				rv = 0;
+ 				goto done;
+-#ifdef __CYGWIN__
++#if defined __CYGWIN__ || defined _WIN32
+ 			}
+ #endif
+ 		}
+-#ifdef O_NONBLOCK
++#if O_NONBLOCK
+ 		if ((flags = fcntl(fd, F_GETFL)) != -1) {
+ 			flags &= ~O_NONBLOCK;
+ 			(void)fcntl(fd, F_SETFL, flags);
+diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/magic.h file-5.00-src/src/magic.h
+--- file-5.00-orig/src/magic.h	2008-11-06 22:58:07.000000000 +0100
++++ file-5.00-src/src/magic.h	2009-02-08 15:05:06.203125000 +0100
+@@ -27,6 +27,30 @@
+ #ifndef _MAGIC_H
+ #define _MAGIC_H
+ 
++#ifndef __GNUC__
++# define __DLL_IMPORT__ __declspec(dllimport)
++# define __DLL_EXPORT__ __declspec(dllexport)
++#else
++# define __DLL_IMPORT__ __attribute__((dllimport)) extern
++# define __DLL_EXPORT__ __attribute__((dllexport)) extern
++#endif 
++
++#if (defined __WIN32__) || (defined _WIN32)
++# ifdef BUILD_MAGIC_DLL
++#  define MAGIC_DLL_IMPEXP __DLL_EXPORT__
++# elif defined(MAGIC_STATIC)
++#  define MAGIC_DLL_IMPEXP  
++# elif defined (USE_MAGIC_DLL)
++#  define MAGIC_DLL_IMPEXP __DLL_IMPORT__
++# elif defined (USE_MAGIC_STATIC)
++#  define MAGIC_DLL_IMPEXP   
++# else /* assume USE_MAGIC_DLL */
++#  define MAGIC_DLL_IMPEXP __DLL_IMPORT__
++# endif
++#else /* __WIN32__ */
++# define MAGIC_DLL_IMPEXP  
++#endif
++
+ #include <sys/types.h>
+ 
+ #define	MAGIC_NONE		0x000000 /* No flags */
+@@ -66,20 +90,20 @@ extern "C" {
+ #endif
+ 
+ typedef struct magic_set *magic_t;
+-magic_t magic_open(int);
+-void magic_close(magic_t);
++MAGIC_DLL_IMPEXP magic_t magic_open(int);
++MAGIC_DLL_IMPEXP void magic_close(magic_t);
+ 
+-const char *magic_file(magic_t, const char *);
+-const char *magic_descriptor(magic_t, int);
+-const char *magic_buffer(magic_t, const void *, size_t);
+-
+-const char *magic_error(magic_t);
+-int magic_setflags(magic_t, int);
+-
+-int magic_load(magic_t, const char *);
+-int magic_compile(magic_t, const char *);
+-int magic_check(magic_t, const char *);
+-int magic_errno(magic_t);
++MAGIC_DLL_IMPEXP const char *magic_file(magic_t, const char *);
++MAGIC_DLL_IMPEXP const char *magic_descriptor(magic_t, int);
++MAGIC_DLL_IMPEXP const char *magic_buffer(magic_t, const void *, size_t);
++
++MAGIC_DLL_IMPEXP const char *magic_error(magic_t);
++MAGIC_DLL_IMPEXP int magic_setflags(magic_t, int);
++
++MAGIC_DLL_IMPEXP int magic_load(magic_t, const char *);
++MAGIC_DLL_IMPEXP int magic_compile(magic_t, const char *);
++MAGIC_DLL_IMPEXP int magic_check(magic_t, const char *);
++MAGIC_DLL_IMPEXP int magic_errno(magic_t);
+ 
+ #ifdef __cplusplus
+ };

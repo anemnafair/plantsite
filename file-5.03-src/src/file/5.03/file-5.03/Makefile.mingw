@@ -1,0 +1,31 @@
+export DEFSPLUS= 
+export INCLUDESPLUS= 
+export CFLAGSPLUS= 
+export LDFLAGSPLUS= 
+export LIBSPLUS= -lregex
+export DLLFLAG=  -DBUILD_MAGIC_DLL 
+sedfiles=Makefile libtool config.h
+BUILDDIR=$(shell cygpath -m `pwd`)
+BUILD0DIR=$(shell basename $(BUILDDIR))
+SRCDIR=../$(BUILD0DIR)-src
+INSTALLDIR=$(BUILD0DIR)
+INSTALLDIR=$(shell echo $(BUILD0DIR) | sed -e "s/-[^-]*$$//")
+PREFIX=c:/progra~1/$(INSTALLDIR)
+
+.PHONY: all 
+all: CONF MFSED
+CONF:
+#	if [ ! -e Makefile.in.sed ]; then \
+#		cp -fp k:/Makefile.in.sed .; \
+#	fi
+#	find.exe $(SRCDIR) -iname Makefile.in -exec sed -i -f Makefile.in.sed '{}' ';'
+	$(SRCDIR)/configure --prefix="$(PREFIX)" --srcdir="$(SRCDIR)" \
+		--docdir="$(PREFIX)/doc" --infodir="$(PREFIX)/info" --mandir="$(PREFIX)/man" \
+		--disable-static --enable-shared \
+          --enable-fsect-man5 #--disable-elf --disable-elf-core 
+	
+-include $(DVLDIR)/makefile.chg
+
+#	make all
+#	make check
+#	make install prefix=c:/temp/$(INSTALLDIR)                                 

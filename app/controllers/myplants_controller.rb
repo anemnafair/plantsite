@@ -25,7 +25,7 @@ class MyplantsController < ApplicationController
   def create
     @myplant = current_user.myplants.build(myplant_params)
     if @myplant.save
-      redirect_to @myplant, notice: 'Your plant list was successfully created.'
+      redirect_to @myplant, notice: 'Your plant was successfully created.'
     else
       render :new
     end
@@ -33,7 +33,7 @@ class MyplantsController < ApplicationController
 
   def update
     if @myplant.update(myplant_params)
-      redirect_to @myplant, notice: 'Your plant list was successfully updated.'
+      redirect_to @myplant, notice: 'Your plant was successfully updated.'
     else
       render :edit
     end

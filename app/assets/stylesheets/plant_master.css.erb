@@ -1,4 +1,6 @@
 
+/*rating*/
+
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
 fieldset, label { margin: 0; padding: 0; }
@@ -40,12 +42,14 @@ h1 { font-size: 1.5em; margin: 10px; }
 
 .rating > input:checked ~ label, /* show gold star when clicked */
 .rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+.rating:not(:checked) > label:hover ~ label { color: #00cc66;  } /* hover previous stars in list */
 
 .rating > input:checked + label:hover, /* hover current star when changing rating */
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+.rating > input:checked ~ label:hover ~ label { color: #00b359;  } 
+
+/*common and scientific name*/
 
 .name {
 	display: inline-block;
@@ -64,42 +68,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 
 
 
-/*rating*/
-
-.rate {
-  font-size: 2rem;
-  margin-left: 25%;
-  margin-top: 1rem;
-  float: left;
-  height: 46px;
-  padding: 0 10px;
-}
-
-.rate:not(:checked) > input {
-  position: absolute;
-  top: -9999px;
-}
-
-.rate:not(:checked) > label {
-  float: right;
-  width: 1em;
-  overflow: hidden;
-  white-space: nowrap;
-  cursor: pointer;
-  font-size: 35px;
-  color: #ccc;
-}
-
-.rate:not(:checked) > label:before { content: '★ '; }
-
-.rate > input:checked ~ label { color: #ffc700; }
-
-.rate:not(:checked) > label:hover, .rate:not(:checked) > label:hover ~ label { color: #deb217; }
-
-.rate > input:checked + label:hover, .rate > input:checked + label:hover ~ label, .rate > input:checked ~ label:hover, .rate > input:checked ~ label:hover ~ label, .rate > label:hover ~ input:checked ~ label { color: #c59b08; }
-
-
-
+/*zone hardiness*/
 
 .hardiness {
 	display: inline-block;
@@ -108,138 +77,138 @@ h1 { font-size: 1.5em; margin: 10px; }
 
 .hardiness h1{
 	font-size: 5rem;
+  margin-top: -5%;
 }
 
 .hardiness p{
 	font-size: 1rem;
+  margin-top: -20%;
 }
 
+
+
+ 
 
 /*plant parts*/
 
-.img {
-	display: inline-block;
-	float: center;	  
-	border: 2px solid black; 
-  border-radius: 100%;
-  width: 274px;
-  background: white;
-  padding: 0.75rem 5rem; 
-  line-height: 260px;
+.parts {
+  display: inline-block;
 }
-
-/*flower*/
 
 .flower {
-	display: block;
-		  
+  float: left;
+  margin-top: 20%;
+  margin-left: -40%;
+}
+
+.flowertitle {
+  margin-left: 36%;
+}
+
+.flowertitle h1 {   
+  font-size: 1.5rem;
+}
+
+.flowerbutton button {
+  text-decoration: none;   
+  border: 2px solid black; 
+  border-radius: 100%;
   width: 274px;
-  margin-left: 33%;
-  margin-top: 6rem;
-  
-}
-
-.flower .title {
-	margin-left: 6rem; 
-	display: inline;
-	font-size: 3rem;
-}
-
-.flower .btn {
-	background: none;
-}
-
-/*fruit*/
-
-.fruit {
-	display: inline-block;
-	float: center;	  
-  width: 274px;
-  margin-left: 25%;
-  margin-top: 1.5rem;
-  
-}
-
-.fruit .title {
-	margin-left: 6rem; 
-	display: inline;
-	font-size: 3rem;
-}
-
-.fruit .btn {
-	background: none;
-}
-
-/*leaves*/
-
-.leaf {
-	display: block;
-	float: left;	  
-  text-decoration: none;
-  padding: 0.75rem 5rem;   
-  width: 274px;
-  margin-left: 5%;
-  
-}
-
-.leaf .title {
-	margin-left: 6rem; 
-	display: inline;
-	font-size: 3rem;
-}
-
-.leaf .btn {
-	background: none;
-}
-
-
-/*twigs-and-stems*/
-
-
-
-.twigs-and-stems {
-	margin-top: 12rem; 	
-}
-
-.twigs-and-stems .img h1{	 
-	display: inline-block;
-	font-size: 1rem;
-}
-
-.twigs-and-stems .btn {
-	background: none;
-}
-
-
-
-/*general*/
-
-.general {
-	float: center;	  
-  text-decoration: none;
-  padding: 0.75rem 5rem;   
-  width: 274px;
-  margin-left: 33%;
-  
-}
-
-.general .title {
-	margin-left: 6rem; 
-	font-size: 3rem;
-}
-
-
-.general-img{
-	float: center;	  
-	border-radius: 100%;
-  width: 274px;
-  padding: 0.75rem 5rem; 
+  background: white;   
   line-height: 260px;
 }
 
-.general .btn {
-	background: none;
+
+.fruit {
+  float: left;
+  margin-top: 85%;
+  margin-left: -46%;
 }
+
+.fruittitle h1 {  
+  font-size: 1.5rem;
+  margin-left: 41%;
+}
+
+.fruitbutton button {
+  text-decoration: none;  
+  border: 2px solid black; 
+  border-radius: 100%;
+  width: 274px;
+  background: white;  
+  line-height: 260px;
+  margin-bottom: 20%;
+}
+
+.general {
+  float: center;
+  margin-top: 25%;
+  margin-left: 10%;
+}
+
+.generaltitle h1 { 
+  font-size: 1.5rem;
+  margin-left: 48%;
+}
+
+.generalbutton button {
+  background: white; 
+  text-decoration: none;     
+  border: 2px hidden; 
+  border-radius: 100%;
+  width: 600px;   
+  line-height: 600px;
+}
+
+
+.leaves {
+  float: right;
+  margin-top: -115%;
+  margin-right: -60%;
+}
+
+.leavestitle h1 { 
+  font-size: 1.5rem;
+  margin-left: 38%;
+}
+
+.leafbutton button{
+  text-decoration: none;    
+  border: 2px solid black; 
+  border-radius: 100%;
+  width: 274px;
+  background: white; 
+  line-height: 260px;
+}
+
+.twigs-stems {
+  float: right;
+  margin-top: -50%;
+  margin-right: -60%;
+}
+
+.twigs-stemstitle h1 {  
+  font-size: 1.5rem;
+  margin-left: 20%;
+}
+
+.twigs-stemsbutton button {
+  border: 2px solid black; 
+  border-radius: 100%;
+  width: 274px;
+  background: white;  
+  line-height: 260px;
+
+}
+
+
+
+
+
+
+
+
+
 
 
 

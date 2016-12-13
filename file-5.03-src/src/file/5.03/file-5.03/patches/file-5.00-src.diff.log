@@ -1,0 +1,125 @@
+Hmm...  Looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/config.h.in file-5.00-src/config.h.in
+|--- file-5.00-orig/config.h.in	2009-02-03 21:16:17.000000000 +0100
+|+++ file-5.00-src/config.h.in	2009-02-08 15:05:06.046875000 +0100
+--------------------------
+Patching file config.h.in using Plan A...
+Hunk #1 succeeded at 266 (offset 3 lines).
+Not setting time of file config.h.in (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/magic/Makefile.in file-5.00-src/magic/Makefile.in
+|--- file-5.00-orig/magic/Makefile.in	2009-02-03 21:16:19.000000000 +0100
+|+++ file-5.00-src/magic/Makefile.in	2009-02-08 15:05:06.109375000 +0100
+--------------------------
+Patching file magic/Makefile.in using Plan A...
+Hunk #1 succeeded at 170 (offset 3 lines).
+Hunk #2 succeeded at 582 (offset 4 lines).
+Not setting time of file magic/Makefile.in (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/Makefile.in file-5.00-src/src/Makefile.in
+|--- file-5.00-orig/src/Makefile.in	2009-02-03 21:16:19.000000000 +0100
+|+++ file-5.00-src/src/Makefile.in	2009-02-08 15:20:49.203125000 +0100
+--------------------------
+Patching file src/Makefile.in using Plan A...
+Hunk #1 succeeded at 60 (offset -1 lines).
+Hunk #2 succeeded at 103.
+Hunk #3 succeeded at 128 (offset 1 line).
+Hunk #4 succeeded at 151 (offset 3 lines).
+Hunk #5 succeeded at 209 (offset 3 lines).
+Hunk #6 succeeded at 225 (offset 3 lines).
+Hunk #7 succeeded at 255 (offset 3 lines).
+Hunk #8 succeeded at 265 (offset 3 lines).
+Hunk #9 succeeded at 290 (offset 3 lines).
+Hunk #10 succeeded at 352 (offset 3 lines).
+Hunk #11 succeeded at 382 (offset 3 lines).
+Not setting time of file src/Makefile.in (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/apprentice.c file-5.00-src/src/apprentice.c
+|--- file-5.00-orig/src/apprentice.c	2009-02-03 21:27:51.000000000 +0100
+|+++ file-5.00-src/src/apprentice.c	2009-02-08 15:05:06.140625000 +0100
+--------------------------
+Patching file src/apprentice.c using Plan A...
+Hunk #1 succeeded at 327 with fuzz 2.
+Hunk #2 succeeded at 619 (offset 4 lines).
+Not setting time of file src/apprentice.c (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/compress.c file-5.00-src/src/compress.c
+|--- file-5.00-orig/src/compress.c	2009-02-03 21:27:51.000000000 +0100
+|+++ file-5.00-src/src/compress.c	2009-02-08 15:07:04.015625000 +0100
+--------------------------
+Patching file src/compress.c using Plan A...
+Hunk #1 succeeded at 45.
+Hunk #2 succeeded at 243 (offset 1 line).
+Hunk #3 succeeded at 387 (offset 1 line).
+Hunk #4 succeeded at 497 with fuzz 1 (offset 3 lines).
+Not setting time of file src/compress.c (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/file.c file-5.00-src/src/file.c
+|--- file-5.00-orig/src/file.c	2009-02-03 21:27:51.000000000 +0100
+|+++ file-5.00-src/src/file.c	2009-02-08 15:12:01.562500000 +0100
+--------------------------
+Patching file src/file.c using Plan A...
+Hunk #1 succeeded at 70.
+Hunk #2 succeeded at 103.
+Hunk #3 succeeded at 136.
+Hunk #4 succeeded at 170.
+Not setting time of file src/file.c (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/file.h file-5.00-src/src/file.h
+|--- file-5.00-orig/src/file.h	2009-02-03 21:27:51.000000000 +0100
+|+++ file-5.00-src/src/file.h	2009-02-08 15:05:06.171875000 +0100
+--------------------------
+Patching file src/file.h using Plan A...
+Hunk #1 succeeded at 59.
+Hunk #2 succeeded at 452 (offset 6 lines).
+Not setting time of file src/file.h (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/fsmagic.c file-5.00-src/src/fsmagic.c
+|--- file-5.00-orig/src/fsmagic.c	2009-02-03 21:27:51.000000000 +0100
+|+++ file-5.00-src/src/fsmagic.c	2009-02-08 15:05:06.187500000 +0100
+--------------------------
+Patching file src/fsmagic.c using Plan A...
+Hunk #1 succeeded at 70.
+Not setting time of file src/fsmagic.c (time mismatch)
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/magic.c file-5.00-src/src/magic.c
+|--- file-5.00-orig/src/magic.c	2009-02-03 21:27:51.000000000 +0100
+|+++ file-5.00-src/src/magic.c	2009-02-08 15:05:06.187500000 +0100
+--------------------------
+Patching file src/magic.c using Plan A...
+Hunk #1 succeeded at 57 with fuzz 1 (offset -4 lines).
+Hunk #2 succeeded at 212 (offset -10 lines).
+Hunk #3 FAILED at 285.
+Hunk #4 FAILED at 310.
+Not setting time of file src/magic.c (time mismatch)
+2 out of 4 hunks FAILED -- saving rejects to file src/magic.c.rej
+Hmm...  The next patch looks like a unified diff to me...
+The text leading up to this was:
+--------------------------
+|diff -ipuwr --binary --strip-trailing-cr -x '*.bak' -x '*.orig' -x '*.rej' -x '*.new' -x '*~' -x debian -x '*.po' -x '*.pot' file-5.00-orig/src/magic.h file-5.00-src/src/magic.h
+|--- file-5.00-orig/src/magic.h	2008-11-06 22:58:07.000000000 +0100
+|+++ file-5.00-src/src/magic.h	2009-02-08 15:05:06.203125000 +0100
+--------------------------
+Patching file src/magic.h using Plan A...
+Hunk #1 succeeded at 27.
+Hunk #2 succeeded at 90.
+Not setting time of file src/magic.h (time mismatch)
+done
