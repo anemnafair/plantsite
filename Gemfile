@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 # Require a specific ruby version
 ruby '2.1.5'
@@ -14,8 +14,6 @@ gem 'pg', group: :production
 gem 'rails_12factor', group: :production
 
 
-
-
 # Use bootstrap for improving the look and feel
 gem 'bootstrap-sass'
 
@@ -23,7 +21,13 @@ gem 'bootstrap-sass'
 gem 'devise'
 
 # Use paperclip for photos
-gem 'paperclip' 
+gem 'paperclip'
+
+# To allow images to be uploaded to Amazon S3 to allow people to see live on heroku
+gem 'aws-sdk', '~> 2.0'
+
+# animates the movement of objects as the page is resized
+gem 'masonry-rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -37,7 +41,9 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+#gem 'turbolinks'
+
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
