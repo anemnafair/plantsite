@@ -1,23 +1,33 @@
+<h1>My plants lists</h1>
+
+<div class="box">
+    <% if user_signed_in? %>
+      <%= link_to new_myplant_path do %>
+        <span class="glyphicon glyphicon-plus"></span> 
+          New Plant List
+      <% end %>
+    <% end %>
+</div>
 
 <div id="myplants" class="transitions-enabled">
-  <h1>My plants lists</h1>
-
-
-
-  <% if user_signed_in? %>
-    <%= link_to 'New Plant List', new_myplant_path %>
-  <% end %> 
-
+  
     <% @myplants.each do |myplant| %> 
       <div class="box panel panel-default">    
-        <%= image_tag myplant.image.url, width: 300 %>
+        <%= link_to image_tag(myplant.image.url, width: 300), myplant %>        
         <div class="panel-body">
-          <%= myplant.description %>
-          <%= myplant.user.email if myplant.user %>
-          <%= link_to 'Show', myplant_path(myplant) %>
+          <p><%= myplant.description %></p>
+          <p><strong><%= myplant.user.email if myplant.user %></strong></p>  
           <% if myplant.user == current_user %>
-            <%= link_to 'Edit', edit_myplant_path(myplant) %>
-            <%= link_to 'Destroy', myplant, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <div class="actions">
+            <%= link_to edit_myplant_path(myplant) do %>
+              <span class="glyphicon glyphicon-edit"></span>
+                Edit
+            <% end %>
+            <%= link_to myplant, method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <span class="glyphicon glyphicon-trash"></span>
+                Delete
+            <% end %>
+            </div>
           <% end %>
         </div>
       </div>

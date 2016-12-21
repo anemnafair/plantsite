@@ -1,10 +1,26 @@
-<%= image_tag @myplant.image.url, width: 800 %>
-
-<p>
-  <strong>Description:</strong>
-  <%= @myplant.description %>
-</p>
-<% if @myplant.user == current_user %>
-	<%= link_to 'Edit', edit_myplant_path(@myplant) %> |
-<% end %>
 <%= link_to 'Back', myplants_path %>
+
+<div class="row">
+	<div class="col-md-offset-2 col-md-8">
+		<div class="panel panel-default">
+			<div class="panel-heading center">
+			<%= image_tag @myplant.image.url, width: 720 %>
+			</div>
+			<div class="panel-body">
+		<p><%= @myplant.description %></p>
+		<p><strong><%= @myplant.user.email if @myplant.user %></strong></p>
+
+		<% if @myplant.user == current_user %>
+			<%= link_to edit_myplant_path(@myplant) do %>
+        <span class="glyphicon glyphicon-edit"></span>
+        Edit
+      <% end %>
+			<%= link_to @myplant, method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Delete
+      <% end %>
+		<% end %>
+			</div>
+		</div>
+	</div>
+</div>

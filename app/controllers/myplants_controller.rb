@@ -6,7 +6,7 @@ class MyplantsController < ApplicationController
   respond_to :html
 
   def index
-    @myplants = Myplant.all
+    @myplants = Myplant.all.order("created_at DESC")
     respond_with(@myplants)
   end
 
