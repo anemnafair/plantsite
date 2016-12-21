@@ -29,6 +29,12 @@ gem 'aws-sdk', '~> 2.0'
 # animates the movement of objects as the page is resized
 gem 'masonry-rails'
 
+# breaks up number of images that can be seen on a page
+gem 'will_paginate'
+
+gem 'will_paginate-bootstrap'
+
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets

@@ -6,7 +6,7 @@ class MyplantsController < ApplicationController
   respond_to :html
 
   def index
-    @myplants = Myplant.all.order("created_at DESC")
+    @myplants = Myplant.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 25)
     respond_with(@myplants)
   end
 
