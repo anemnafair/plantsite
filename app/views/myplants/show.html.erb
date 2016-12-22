@@ -8,7 +8,7 @@
 			</div>
 			<div class="panel-body">
 		<p><%= @myplant.description %></p>
-		<p><strong><%= @myplant.user.email if @myplant.user %></strong></p>
+		<p><strong><%= @myplant.user.name if @myplant.user %></strong></p>
 
 		<% if @myplant.user == current_user %>
 			<%= link_to edit_myplant_path(@myplant) do %>

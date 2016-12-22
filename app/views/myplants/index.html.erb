@@ -16,7 +16,7 @@
         <%= link_to image_tag(myplant.image.url, width: 300), myplant %>        
         <div class="panel-body">
           <p><%= myplant.description %></p>
-          <p><strong><%= myplant.user.email if myplant.user %></strong></p>  
+          <p><strong><%= myplant.user.name if myplant.user %></strong></p>  
           <% if myplant.user == current_user %>
             <div class="actions">
             <%= link_to edit_myplant_path(myplant) do %>
